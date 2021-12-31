@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Usage ID="SchedTask" PlatformBaseID="SchedTask" PlatformBaseType="SchedTask" PlatformBaseProtocol="SchedTask">
+      <Properties>
+        <Required>
+          <Property Name="TaskName" />
+          <Property Name="Address" />
+        </Required>
+        <Optional>
+          <Property Name="TaskFolder" />
+        </Optional>
+      </Properties>
+      <LinkedPasswords>
+        <Link Name="LogonAccount" PropertyIndex="1" />
+      </LinkedPasswords>
+      <DisplayedColumns>
+        <Column Name="TaskName" />
+        <Column Name="Address" />
+      </DisplayedColumns>
+    </Usage>

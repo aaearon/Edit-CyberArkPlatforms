@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Device Name="Operating System"><Policies><Policy ID="WinDomain" AutoChangeOnAdd="No" AutoVerifyOnAdd="No" PlatformBaseID="WinDomain" PlatformBaseType="Windows" PlatformBaseProtocol="Windows">
+          <Properties>
+            <Required>
+              <Property Name="Address" />
+              <Property Name="Username" />
+            </Required>
+            <Optional>
+              <Property Name="LogonDomain" ResolveFrom="Address" />
+              <Property Name="UserDN" />
+              <Property Name="Port" />
+            </Optional>
+          </Properties>
+          <LinkedPasswords>
+            <Link Name="LogonAccount" PropertyIndex="1" />
+            <Link Name="ReconcileAccount" PropertyIndex="3" />
+          </LinkedPasswords>
+          <Usages>
+            <Usage Name="WinService" />
+            <Usage Name="SchedTask" />
+            <Usage Name="IISAppPool" />
+            <Usage Name="Registry" />
+            <Usage Name="ComPlus" />
+            <Usage Name="IISAnonymous" />
+          </Usages>
+          <TicketingSystem EnterTicketingInfo="No" ValidateTicketNumber="No" />
+          <PrivilegedSessionManagement ID="PSMServer_2ab6ce8" />
+          <ConnectionComponents>
+            <ConnectionComponent Id="PSM-RDP">
+              <OverrideUserParameters>
+                <Parameter Name="PSMRemoteMachine" Type="CyberArk.PasswordVault.Web.TransparentConnection.RemoteMachineUserParameter, CyberArk.PasswordVault.Web" />
+                <Parameter Name="LogonDomain" Type="CyberArk.PasswordVault.TransparentConnection.PSM.LogonDomainUserParameter, CyberArk.PasswordVault.TransparentConnection.PSM" />
+              </OverrideUserParameters>
+            </ConnectionComponent>
+            <ConnectionComponent Id="RDP">
+              <OverrideUserParameters>
+                <Parameter Name="RemoteMachine" Type="CyberArk.PasswordVault.Web.TransparentConnection.RemoteMachineUserParameter, CyberArk.PasswordVault.Web" />
+              </OverrideUserParameters>
+            </ConnectionComponent>
+            <ConnectionComponent Id="RDPWinApplet">
+              <OverrideUserParameters>
+                <Parameter Name="RemoteMachine" Type="CyberArk.PasswordVault.Web.TransparentConnection.RemoteMachineUserParameter, CyberArk.PasswordVault.Web" />
+              </OverrideUserParameters>
+            </ConnectionComponent>
+            <ConnectionComponent Id="RDPapplet">
+              <OverrideUserParameters>
+                <Parameter Name="RemoteMachine" Type="CyberArk.PasswordVault.Web.TransparentConnection.RemoteMachineUserParameter, CyberArk.PasswordVault.Web" />
+              </OverrideUserParameters>
+            </ConnectionComponent>
+          </ConnectionComponents>
+        </Policy></Policies></Device>
