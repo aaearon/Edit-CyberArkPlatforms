@@ -44,10 +44,11 @@
 
     process {
         # XPath expands to something like //Policy[@ID='Oracle']/Properties/Optional or //Usage[@ID='SchedTask']/Properties/Optional
-        $PlatformXml = $FileXml.SelectNodes("//Policy[@ID='$PlatformId']$Path | //Usage[@ID='$PlatformId']$Path")
+        $SelectXPath = "//Policy[@ID='$PlatformId']$Path | //Usage[@ID='$PlatformId']$Path"
+        $PlatformXml = $FileXml.SelectNodes($SelectXPath)
 
-        if ($null -eq $PlatformXml) {
-            throw "Invalid path! Check that it exists."
+        if ($PlatformXml.Count -eq 0) {
+            throw "No nodes found using the XPath '$SelectXPath'! Check that it correct."
         }
 
         switch ($Operation) {

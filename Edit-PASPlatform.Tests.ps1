@@ -43,4 +43,12 @@ Describe 'Edit-PASPlatform' {
     } -TestCases @(
         @{PlatformId = 'Oracle'; File = 'Policy-Oracle.xml'}
     )
+
+    It 'throws an exception when the provided path returns no nodes' {
+        $Platform = "$TestDrive\$File"
+
+        { Edit-PASPlatform -PlatformId $PlatformId -FilePath $Platform -Path '/Properties/Optionall' -Operation Add -ElementName 'Property' -ElementAttributes @{'Name' = 'Business Department'} } | Should -Throw
+    } -TestCases @(
+        @{PlatformId = 'Oracle'; File = 'Policy-Oracle.xml'}
+    )
 }
