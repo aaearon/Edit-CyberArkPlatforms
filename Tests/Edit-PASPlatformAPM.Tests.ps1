@@ -28,7 +28,7 @@ Describe 'Edit-PASPlatformAPM' {
         $Files | Edit-PASPlatformAPM -Property 'MinDelayBetweenRetries' -Value 91
         # assert
         foreach ($File in $Files) {
-            $UpdatePlatformContent = Get-IniContent -FilePath $Platform
+            $UpdatePlatformContent = Get-IniContent -FilePath $File
             $UpdatePlatformContent['_']['MinDelayBetweenRetries'] | Should -BeExactly $ExpectedValue
         }
     }
