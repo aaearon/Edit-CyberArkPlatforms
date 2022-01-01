@@ -11,7 +11,7 @@ Two cmdlets used to edit a CyberArk platform's properties once the files have be
 
 Install the required modules available in the PowerShell gallery and import the desired cmdlet.
 
-`Import-Module Edit-Platform.ps1`
+`Import-Module Edit-PASPlatform.ps1`
 
 ## Examples
 
