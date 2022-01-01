@@ -33,7 +33,6 @@ Describe 'Edit-PASPlatform' {
         @{PlatformId = 'WinDomain'; File = 'Policies.xml'}
     )
 
-
     It 'updates an existing property' {
     }
 
@@ -66,4 +65,15 @@ Describe 'Edit-PASPlatform' {
     } -TestCases @(
         @{PlatformId = 'Oracle'; File = 'Policy-Oracle.xml'}
     )
+
+    It 'accepts a list of platform IDs from the pipeline' {
+        $PoliciesXml = "$TestDrive\Policies.xml"
+        $PlatformIds = @('WinDomain', 'SchedTask', 'Oracle')
+
+        $PlatformIds | Edit-PASPlatform -FilePath $PoliciesXml -Path '/Properties/Optional' -Operation Add -ElementName 'Property' -ElementAttributes @{'Name' = 'Description'}
+        $Result = [xml] (Get-Content -Path $PoliciesXml)
+        foreach ($Id in $PlatformIds) {
+            Select-Xml -Xml $Result -XPath "//*[@ID='$Id']/Properties/Optional/Property[@Name='Description']" | Should -Be $true
+        }
+    }
 }

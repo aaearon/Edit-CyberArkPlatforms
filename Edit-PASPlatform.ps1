@@ -7,7 +7,10 @@
         [string]$FilePath,
 
         #The ID of the platform to edit.
-        [Parameter(Mandatory = $true)]
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true
+        )]
         [string]
         $PlatformId,
 
