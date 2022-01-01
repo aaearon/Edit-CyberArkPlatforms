@@ -15,8 +15,21 @@ Describe 'Edit-PASPlatformAPM' {
         $UpdatePlatformContent = Get-IniContent -FilePath $Platform
         $UpdatePlatformContent['_']['MinDelayBetweenRetries'] | Should -BeExactly $ExpectedValue
     } -TestCases @(
-        @{File = 'Policy-Oracle.ini'}
-        @{File = 'Policy-SchedTask.ini'}
-        @{File = 'Policy-WinDomain.ini'}
+        @{File = 'Policy-Oracle.ini' }
+        @{File = 'Policy-SchedTask.ini' }
+        @{File = 'Policy-WinDomain.ini' }
     )
+
+    It 'takes APM .ini files from the pipeline' {
+        # arrange
+        $ExpectedValue = '91'
+        $Files = Get-ChildItem -Path $TestDrive\*.ini
+        # act
+        $Files | Edit-PASPlatformAPM -Property 'MinDelayBetweenRetries' -Value 91
+        # assert
+        foreach ($File in $Files) {
+            $UpdatePlatformContent = Get-IniContent -FilePath $Platform
+            $UpdatePlatformContent['_']['MinDelayBetweenRetries'] | Should -BeExactly $ExpectedValue
+        }
+    }
 }
