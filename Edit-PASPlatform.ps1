@@ -76,11 +76,11 @@
     }
 
     end {
-        # .save requires a fullpath. Relative does not work.
         if ($OutFile) {
-            $FileXml.Save($(Get-ChildItem -Path $OutFile).Fullname)
+            $FileXml.Save($OutFile)
         }
         else {
+            # Full path required when saving.
             $FileXml.Save((Get-ChildItem -Path $FilePath).Fullname)
         }
     }
