@@ -1,4 +1,21 @@
 ﻿function Edit-PASPlatform {
+    <#
+    .SYNOPSIS
+        Edits a CyberArk platform's General and UI and Workflow properties XML file.
+    .DESCRIPTION
+        Provided a CyberArk platform's General and UI and Workflow properties as XML this cmdlet allows adds new and deletes existing properties.
+
+        It can update both Target Account Platforms and Service Account Platforms.
+    .EXAMPLE
+        PS C:\> Edit-PASPlatform -PlatformId Oracle -FilePath Policies.xml -Path '/Properties/Optional' -Operation Add -ElementName 'Property' -ElementAttributes @{'Name' = 'Business Department'}
+        Adds a new optional property named 'Business Department' to the Oracle platform in Policies.xml.
+    .EXAMPLE
+        PS C:\> Edit-PASPlatform -PlatformId WinDomain -FilePath Policy-WinDomain.xml -Path '/Properties/Required' -Operation Add -ElementName 'Property' -ElementAttributes @{'Name' = 'Description'; 'Name' = 'UPN'}
+        Adds two new required properties 'Description' and 'UPN' to the WinDomain platform in Policy-WinDomain.xml.
+    .EXAMPLE
+        PS C:\> @('WinDomain', 'Oracle', 'SchedTask') | Edit-PASPlatform -FilePath Policies.xml -Path '/Properties/Optional' -Operation Delete -ElementName 'Property' -ElementAttributes @{'Name' = 'Business Owner'}
+        Deletes the existing optional property 'Business Owner' from the WinDomain, Oracle, and SchedTask platforms passed via the pipeline in Policies.xml
+    #>
     [CmdletBinding()]
     param (
         # The path to the platform represented as .xml.
