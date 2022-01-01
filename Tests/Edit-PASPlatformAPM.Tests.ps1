@@ -1,5 +1,5 @@
 ﻿BeforeAll {
-    . $PSScriptRoot/Edit-PASPlatformAPM.ps1
+    . $PSScriptRoot/../Edit-PASPlatformAPM.ps1
 
     Copy-Item *.ini $TestDrive
 }
