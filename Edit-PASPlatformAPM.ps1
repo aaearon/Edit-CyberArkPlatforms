@@ -9,10 +9,10 @@ function Edit-PASPlatformAPM {
     .EXAMPLE
         PS C:\> Edit-PASPlatformAPM -FilePath Policy-WinDomain.ini -Property 'MinDelayBetweenRetries' -Value 91
         Changes the MinDelayBetweenRetries value to 91 in Policy-WinDomain.ini (taken directly from the Vault or from the platform export Zip file.)
-
+    .EXAMPLE
         PS C:\> Edit-PASPlatformAPM -FilePath Policy-Oracle.ini -Section 'ExtraInfo' -Property 'Port' -Value 1521
         Changes the Port value to 1521 under the 'ExtraInfo' section in Policy-Oracle.ini.
-
+    .EXAMPLE
         PS C:\> Get-ChildItems C:\APMIniFiles | Edit-PASPlatformAPM -Property 'ImmediateInterval' -Value 1
         Changes the ImmediateInterval value to 1 for all files in C:\APMIniFiles
     #>
