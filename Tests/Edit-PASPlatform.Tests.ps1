@@ -5,7 +5,7 @@
 }
 
 Describe 'Edit-PASPlatform' {
-    It 'adds a new property to <File> for platform <PlatformId>' {
+    It 'adds a new property with a single attribute to <File> for platform <PlatformId>' {
         $Platform = "$TestDrive\$File"
 
         Edit-PASPlatform -PlatformId $PlatformId -FilePath $Platform -Path '/Properties/Optional' -Operation Add -ElementName 'Property' -ElementAttributes @{'Name' = 'Business Department'}
@@ -18,6 +18,21 @@ Describe 'Edit-PASPlatform' {
         @{PlatformId = 'SchedTask'; File = 'Policy-SchedTask.xml'}
         @{PlatformId = 'WinDomain'; File = 'Policies.xml'}
     )
+
+    It 'adds a new property with a two attributes to <File> for platform <PlatformId>' {
+        $Platform = "$TestDrive\$File"
+
+        Edit-PASPlatform -PlatformId $PlatformId -FilePath $Platform -Path '/LinkedPasswords' -Operation Add -ElementName 'Link' -ElementAttributes @{'Name' = 'BogusAccount'; PropertyIndex = '4'}
+
+        $Result = [xml] (Get-Content -Path $Platform)
+        Select-Xml -Xml $Result -XPath "//*[@ID='$PlatformId']/LinkedPasswords/Link[@Name='BogusAccount' and @PropertyIndex='4']" | Should -Be $true
+
+    } -TestCases @(
+        @{PlatformId = 'Oracle'; File = 'Policy-Oracle.xml'}
+        @{PlatformId = 'SchedTask'; File = 'Policy-SchedTask.xml'}
+        @{PlatformId = 'WinDomain'; File = 'Policies.xml'}
+    )
+
 
     It 'updates an existing property' {
     }
