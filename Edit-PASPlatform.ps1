@@ -31,7 +31,9 @@
         [string]
         $PlatformId,
 
-        # The path inside the xml tree where the new element operation happens. Example: /Properties/Optional
+        # The path inside the xml tree where the new element operation happens. Example: /Properties/Optional.
+        # Provide '/' if you want to add an element to the root of the policy, for example when wanting to add
+        # sections such as 'LinkedPasswords', 'ConnectionComponents', etc.
         [Parameter(Mandatory = $true)]
         [string]
         $Path,
@@ -63,6 +65,11 @@
     }
 
     process {
+        # If the path is '/', we don't want to append it to the XPath.
+        if ($Path -eq '/') {
+            $Path = ''
+        }
+
         # XPath expands to something like //Policy[@ID='Oracle']/Properties/Optional or //Usage[@ID='SchedTask']/Properties/Optional
         $SelectXPath = "//Policy[@ID='$PlatformId']$Path | //Usage[@ID='$PlatformId']$Path"
         $PlatformXml = $FileXml.SelectNodes($SelectXPath)
