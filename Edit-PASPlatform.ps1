@@ -48,7 +48,7 @@
         $ElementName,
 
         # Attribute keys and values to be added to the element.
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [hashtable]
         $ElementAttributes,
 
@@ -75,8 +75,10 @@
             'Add' {
                 $NewElement = $FileXml.CreateElement($ElementName)
 
-                foreach ($Attribute in $ElementAttributes.GetEnumerator()) {
-                    $NewElement.SetAttribute($Attribute.Key, $Attribute.Value)
+                if ($ElementAttributes) {
+                    foreach ($Attribute in $ElementAttributes.GetEnumerator()) {
+                        $NewElement.SetAttribute($Attribute.Key, $Attribute.Value)
+                    }
                 }
 
                 $PlatformXml.AppendChild($NewElement)

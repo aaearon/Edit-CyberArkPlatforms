@@ -33,6 +33,21 @@ Describe 'Edit-PASPlatform' {
         @{PlatformId = 'WinDomain'; File = 'Policies.xml'}
     )
 
+
+It 'adds a new element without attributes to <File> for platform <PlatformId>' {
+    $Platform = "$TestDrive\$File"
+
+    Edit-PASPlatform -PlatformId $PlatformId -FilePath $Platform -Path '/Properties/Optional' -Operation Add -ElementName 'NoAttributeElement'
+
+    $Result = [xml] (Get-Content -Path $Platform)
+    Select-Xml -Xml $Result -XPath "//*[@ID='$PlatformId']/Properties/Optional/NoAttributeElement" | Should -Not -Be $null
+
+} -TestCases @(
+    @{PlatformId = 'Oracle'; File = 'Policy-Oracle.xml'}
+    @{PlatformId = 'SchedTask'; File = 'Policy-SchedTask.xml'}
+    @{PlatformId = 'WinDomain'; File = 'Policies.xml'}
+)
+
     It 'updates an existing property' {
     }
 
